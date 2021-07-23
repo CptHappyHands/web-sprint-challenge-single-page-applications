@@ -1,12 +1,13 @@
 import React from 'react'
 
+
 export default function PizzaForm(props) {
     const {
         values,
         submit,
         change,
         disabled,
-        // errors,
+        errors,
     } = props
 
     const onSubmit = evt => {
@@ -15,9 +16,10 @@ export default function PizzaForm(props) {
     }
 
     const onChange = evt => {
-        const { name, value } = evt.target
-        console.log(evt.target)
-        change( name, value )
+        const { name, value, type, checked } = evt.target
+    const valueToUse = type === 'checkbox' ? checked : value
+    // console.log(evt.target)
+    change(name, valueToUse)
     }
 
     return (
@@ -50,7 +52,7 @@ export default function PizzaForm(props) {
                 </label>
             </div>
 
-            <div className="form-sauce input">
+            {/* <div className="form-sauce input">
                 <h4>Chose your sauce</h4>
                 <label htmlFor="sauce-select">Marinara
                     <input 
@@ -91,15 +93,14 @@ export default function PizzaForm(props) {
                     checked={values.sauce === 'enemies'}
                     />
                 </label>
-            </div>
+            </div> */}
 
-            <div className="form-toppings input">
+            <div className="form-toppings input">[
                 <h4>Choose your Toppings</h4>
                 <label htmlFor="toppings-select">Pepperoni
                     <input
                     type='checkbox'
                     name='pepperoni'
-                    // value = 'pepperoni'
                     onChange={onChange}
                     checked={values.pepperoni}
                     />
@@ -109,7 +110,6 @@ export default function PizzaForm(props) {
                     <input
                     type='checkbox'
                     name='sausage'
-                    // value='sausage'
                     onChange={onChange}
                     checked={values.sausage}
                     />
@@ -119,7 +119,6 @@ export default function PizzaForm(props) {
                     <input
                     type='checkbox'
                     name='mushrooms'
-                    // value='mushrooms'
                     onChange={onChange}
                     checked={values.mushrooms}
                     />
@@ -129,7 +128,6 @@ export default function PizzaForm(props) {
                     <input
                     type='checkbox'
                     name='pineapple'
-                    // value='pineapple'
                     onChange={onChange}
                     checked={values.pineapple}
                     />
@@ -139,7 +137,6 @@ export default function PizzaForm(props) {
                     <input
                     type='checkbox'
                     name='bacon'
-                    // value='bacon'
                     onChange={onChange}
                     checked={values.bacon}
                     />
@@ -149,11 +146,10 @@ export default function PizzaForm(props) {
                     <input
                     type='checkbox'
                     name='olives'
-                    // value='olives'
                     onChange={onChange}
                     checked={values.olives}
                     />
-                </label>
+                </label>]
             </div>
 
             <div className='form-instructions input'>
@@ -168,7 +164,8 @@ export default function PizzaForm(props) {
             </div>
 
             <div className='form-submit input'>
-                <button name="submitBtn" disabled={disabled}>submit</button>
+                <button id='order-button' name="submitBtn" disabled={disabled}>submit</button>
+                   <Pizza />
                     {/* <div className='errors'>
                     <div>{errors.size}</div>
                     <div>{errors.sauce}</div>
@@ -177,5 +174,35 @@ export default function PizzaForm(props) {
                     </div> */}
             </div>
         </form>
+    )
+}
+
+function Pizza({details}) {
+    if(!details) {
+        return <h3>Loading your Pizza...</h3>
+    }
+
+    return (
+        <div className='pizza-container'>
+            <h2>{details.name}</h2>
+            <p>{details.size}</p>
+            <p>{details.pepperoni}</p>
+            <p>{details.sausage}</p>
+            <p>{details.bacon}</p>
+            <p>{details.pineapple}</p>
+            <p>{details.mushrooms}</p>
+            <p>{details.olives}</p>
+            
+            {/* {
+                !!details.toppings && !!details.toppings.length &&
+                <div>
+                    Toppings:
+                    <ul>
+                        {details.toppings.map((topp, idx) => <li key={idx}>{topp}</li>)}
+                    </ul>
+                    </div>
+            } */}
+            <p>{details.instructions}</p>
+        </div>
     )
 }

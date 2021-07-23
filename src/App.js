@@ -1,16 +1,22 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from './components/Form'
 import Pizza from './components/Pizza'
 import { Route, Link, Switch, NavLink, Redirect } from "react-router-dom";
 import Home from './components/Home'
 import schema from './components/formSchema'
-import { reach } from "yup";
+import { reach } from 'yup'
+
 
 const initialFormValues = {
   size: '',
-  sauce: '',
-  toppings: '',
+  // sauce: '',
+  pepperoni: false,
+  sausage: false,
+  olives: false,
+  pineapple: false,
+  bacon: false,
+  mushrooms: false,
   instructions: '',
 }
 
@@ -32,30 +38,19 @@ const updateForm = (inputName, inputValue) => {
   setFormValues({...formValues, [inputName]: inputValue})
 }
 
-const submitForm = () => {
-  const newPizza = {
-    name: formValues.name,
-    size: formValues.size,
-    sauce: formValues.sauce,
-    instructions: formValues.instructions,
-    toppings: ['pepperoni', 'olives', 'bacon', 'sausage', 'pineapple', 'mushrooms'].filter(topp => formValues[topp])
-  }
-  postNewPizza(newPizza)
-}
 
-const inputChange = (name, value) => {
-  setFormValues({
-    ...formValues, [name]: value
-  })
-}
 
 const postNewPizza = newPizza => {
   axios.post('https://reqres.in/api/orders', newPizza)
   .then(res => {
-    setPizza(newPizza)
+    setPizza([res.data, ...pizza])
   })
   .catch(err => {
     console.log(err)
+  })
+  .finally(() => {
+    console.log("this got ran")
+    setFormValues(initialFormValues)
   })
 }
 
@@ -65,6 +60,35 @@ const validate = ( name, value ) => {
   .then(() => setFormErrors({...formErrors, [name]: ''}))
   .catch(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
 }
+
+const inputChange = (name, value) => {
+  // validate(name, value)
+  setFormValues({
+    ...formValues, [name]: value
+  })
+}
+
+const submitForm = () => {
+  const newPizza = {
+    name: formValues.name,
+    size: formValues.size,
+    // sauce: formValues.sauce,
+    instructions: formValues.instructions,
+    pepperoni: formValues.pepperoni,
+    sausage: formValues.sausage,
+    pineapple: formValues.pineapple,
+    olives: formValues.olives,
+    bacon: formValues.bacon,
+    mushrooms: formValues.mushrooms,
+  }
+  postNewPizza(newPizza)
+}
+
+useEffect(() => {
+  schema.isValid(formValues).then(valid => setDisabled(!valid))
+}, [formValues])
+
+
 
   return (
     <div className="App">
