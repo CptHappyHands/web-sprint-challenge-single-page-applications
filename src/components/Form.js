@@ -41,8 +41,8 @@ export default function PizzaForm(props) {
             <div className="form-size input">
                 <h3>Make your pizza!</h3>
                     
-                <label htmlFor="size">Choose your size
-                    <select id='size-dropdown' name='size' onChange={onChange} value={values.size}>
+                <label>Choose your size
+                    <select id='size-dropdown' name="size" onChange={onChange} value={values.size}>
                     <option value=''>--Select a size--</option>
                     <option value='small'>Small</option>
                     <option value='medium'>Medium</option>
@@ -52,50 +52,7 @@ export default function PizzaForm(props) {
                 </label>
             </div>
 
-            {/* <div className="form-sauce input">
-                <h4>Chose your sauce</h4>
-                <label htmlFor="sauce-select">Marinara
-                    <input 
-                    type="radio" 
-                    name='sauce' 
-                    value="marinara" 
-                    onChange={onChange} 
-                    checked={values.sauce === 'marinara'}
-                    />
-                </label>
-                <br></br>
-                <label>Zesty Marinara
-                    <input 
-                    type="radio"
-                    name='sauce'
-                    value="zesty-marinara"
-                    onChange={onChange}
-                    checked={values.sauce === 'zesty-marinara'}
-                    />
-                </label>
-                <br></br>
-                <label>Alfredo
-                    <input 
-                    type="radio"
-                    name='sauce'
-                    value="alfredo" 
-                    onChange={onChange}
-                    checked={values.sauce === 'alfredo'}
-                    />
-                </label>
-                <br></br>
-                <label>The Blood of your Enemies
-                    <input 
-                    type="radio" 
-                    name='sauce'
-                    value="enemies" 
-                    onChange={onChange}
-                    checked={values.sauce === 'enemies'}
-                    />
-                </label>
-            </div> */}
-
-            <div className="form-toppings input">[
+            <div className="form-toppings input">
                 <h4>Choose your Toppings</h4>
                 <label htmlFor="toppings-select">Pepperoni
                     <input
@@ -149,7 +106,7 @@ export default function PizzaForm(props) {
                     onChange={onChange}
                     checked={values.olives}
                     />
-                </label>]
+                </label>
             </div>
 
             <div className='form-instructions input'>

@@ -34,10 +34,15 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 1. In 1-2 sentences, explain what React's `useRouteMatch` hook is used for.
 
-I'd use it for things
+It is used to attempt to match the current URL without using Route
 
 1. How would you explain form validation to someone who has never programmed before?
+
+Form validation is when the website you are submitting information to check it to make sure it actually fits and makes sense
+
 1. In 1-2 sentences, define end to end testing.
+
+End to end testing is used to simulate what a ral life user will see and experience
 
 ## Instructions
 

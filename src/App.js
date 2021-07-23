@@ -6,11 +6,12 @@ import { Route, Link, Switch, NavLink, Redirect } from "react-router-dom";
 import Home from './components/Home'
 import schema from './components/formSchema'
 import { reach } from 'yup'
+import './App.css';
 
 
 const initialFormValues = {
+  name: '',
   size: '',
-  // sauce: '',
   pepperoni: false,
   sausage: false,
   olives: false,
@@ -54,12 +55,12 @@ const postNewPizza = newPizza => {
   })
 }
 
-const validate = ( name, value ) => {
-  reach(schema, name)
-  .validate(value)
-  .then(() => setFormErrors({...formErrors, [name]: ''}))
-  .catch(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
-}
+// const validate = ( name, value ) => {
+//   reach(schema, name)
+//   .validate(value)
+//   .then(() => setFormErrors({...formErrors, [name]: ''}))
+//   .catch(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
+// }
 
 const inputChange = (name, value) => {
   // validate(name, value)
@@ -72,7 +73,6 @@ const submitForm = () => {
   const newPizza = {
     name: formValues.name,
     size: formValues.size,
-    // sauce: formValues.sauce,
     instructions: formValues.instructions,
     pepperoni: formValues.pepperoni,
     sausage: formValues.sausage,
@@ -94,12 +94,9 @@ useEffect(() => {
     <div className="App">
       <nav>
         <h1 className="App-header">Lambda Eats!</h1>
-        <div className='nav-links'>
+          <h2 className='nav-links'><NavLink to='/home'>Home</NavLink></h2>
+          <h2 className="nav-links"><NavLink to='/pizza'>Pizza</NavLink></h2>
           
-          <NavLink to='/home'>Home</NavLink>
-          <NavLink to='/pizza'>Pizza</NavLink>
-          
-        </div>
       </nav>
       <Home />
       <Route exact path='/pizza'>
